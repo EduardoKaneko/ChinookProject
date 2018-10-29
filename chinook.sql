@@ -1,9 +1,9 @@
 /* Query 1 - the query used to first insight */
 
 SELECT  i.billingcountry  Country,
-	         SUM(i.total) TotalUSD,
-			 SUM(il.quantity) Quantity,
-			 (SUM(i.total) / SUM(il.quantity) )  MediumTicket
+	SUM(i.total) TotalUSD,
+ 	SUM(il.quantity) Quantity,
+	(SUM(i.total) / SUM(il.quantity) )  MediumTicket
 FROM invoice i
 JOIN InvoiceLine il
 ON i.invoiceid = il.invoiceid
@@ -15,9 +15,9 @@ ORDER BY 4 DESC
 
 WITH count_composer AS (
 SELECT t.composer AS Composer,
-	        SUM(i.total) AS totalUSD,
-			g.genreid AS ID,
-			g.name AS Genre
+       SUM(i.total) AS totalUSD,
+       g.genreid AS ID,
+       g.name AS Genre
 FROM track t
 JOIN invoiceline il
 ON t.trackid = il.trackid
@@ -31,8 +31,8 @@ ORDER BY 2 DESC
 LIMIT 10)
 
 SELECT Composer AS Composer,
-			MAX(totalUSD) AS TotalUSD,
-			Genre AS Genre
+       MAX(totalUSD) AS TotalUSD,
+       Genre AS Genre
 FROM count_composer
 GROUP BY 1
 ORDER BY 2 DESC;
@@ -41,8 +41,8 @@ ORDER BY 2 DESC;
 /* Query 3 - The query used to third insight */
 
 SELECT g.name  AS Genre,
-	        SUM(i.total) AS Total,
-			SUM(il.quantity) AS  Quantity,
+       SUM(i.total) AS Total,
+       SUM(il.quantity) AS  Quantity,
 FROM invoice i
 JOIN InvoiceLine il
 ON i.invoiceid = il.invoiceid
@@ -57,9 +57,9 @@ ORDER BY 2 DESC;
 
 WITH cities AS (
 SELECT i.BillingCity AS City,
-	        SUM(i.total) AS Total,
-			g.genreid AS ID,
-			g.name AS Genre
+       SUM(i.total) AS Total,
+       g.genreid AS ID,
+       g.name AS Genre
 FROM invoice i
 JOIN invoiceline il
 ON il.invoiceid = i.invoiceid
@@ -72,8 +72,8 @@ ORDER BY 2 DESC
 LIMIT 10)
 
 SELECT City,
-			Total,
-			Genre
+       Total,
+       Genre
 FROM cities
 GROUP BY 1
 ORDER BY 2 DESC;
